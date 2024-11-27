@@ -1,0 +1,36 @@
+// Configuração para o gerador de cliente Prisma
+// O Prisma vai usar o gerador "prisma-client-js" para criar o cliente JavaScript que será utilizado para interagir com o banco de dados.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configuração para a conexão com o banco de dados
+// Define o tipo de banco de dados utilizado (MySQL neste caso) e a URL de conexão, que é lida de uma variável de ambiente chamada "DATABASE_URL".
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo para a tabela de usuários
+// Representa os usuários do sistema, com os campos e regras para cada atributo.
+model User {
+  id        Int      @id @default(autoincrement()) // Chave primária que é incrementada automaticamente.
+  username  String   @unique // Nome de usuário único no sistema.
+  email     String   @unique // Endereço de email único no sistema.
+  password  String // Senha do usuário.
+  photos    Photo[] // Relacionamento: um usuário pode ter várias fotos associadas.
+  createdAt DateTime @default(now()) // Armazena a data/hora de criação, com valor padrão como o momento atual.
+  updatedAt DateTime @updatedAt // Atualiza automaticamente a data/hora sempre que o registro for modificado.
+}
+
+// Modelo para a tabela de fotos
+// Representa as fotos associadas a usuários, com informações sobre cada foto.
+model Photo {
+  id        Int      @id @default(autoincrement()) // Chave primária que é incrementada automaticamente.
+  title     String // Título ou descrição da foto.
+  url       String // URL onde a imagem está armazenada.
+  userId    Int // ID do usuário ao qual esta foto pertence.
+  user      User     @relation(fields: [userId], references: [id]) // Relacionamento com o modelo User, baseado no campo userId.
+  createdAt DateTime @default(now()) // Armazena a data/hora de criação, com valor padrão como o momento atual.
+  updatedAt DateTime @updatedAt // Atualiza automaticamente a data/hora sempre que o registro for modificado.
+}

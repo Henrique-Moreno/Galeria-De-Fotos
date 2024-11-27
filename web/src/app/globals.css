@@ -1,0 +1,37 @@
+/* Importa as bases, componentes e utilitários do Tailwind CSS */
+@tailwind base; 
+@tailwind components;
+@tailwind utilities;
+
+/* Define as variáveis de cor para o tema claro */
+:root {
+  --background: #ffffff; /* Cor de fundo do tema claro */
+  --foreground: #171717; /* Cor do texto no tema claro */
+}
+
+/* Configura as cores para o tema escuro, que será ativado dependendo da preferência do usuário */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a; /* Cor de fundo do tema escuro */
+    --foreground: #ededed; /* Cor do texto no tema escuro */
+  }
+}
+
+/* Estiliza o corpo da página usando as variáveis de cor definidas anteriormente */
+body {
+  color: var(--foreground); /* Aplica a cor do texto */
+  background: var(--background); /* Aplica a cor de fundo */
+  font-family: Inter, Arial, Helvetica, sans-serif; /* Define a fonte usada no corpo da página */
+}
+
+/* Cria uma animação chamada fadeInOut */
+@keyframes fadeInOut {
+  0% { opacity: 0; }  /* No início, o elemento estará invisível */
+  50% { opacity: 1; } /* No meio da animação, o elemento será totalmente visível */
+  100% { opacity: 0; } /* No final, o elemento se tornará invisível novamente */
+}
+
+/* Aplica a animação fadeInOut a qualquer elemento com a classe .animate-fade */
+.animate-fade {
+  animation: fadeInOut 7s ease-in-out infinite; /* Define a animação de fade com duração de 7 segundos, efeito 'ease-in-out' e repetição infinita */
+}
